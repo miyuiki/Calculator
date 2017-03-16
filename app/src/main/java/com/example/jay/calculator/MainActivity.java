@@ -17,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
     private Button b1,b2,b3,b4,b5,b6,b7,b8,b9,b0;
     private Button add,sub,mult,div,eq,c;
     private String s = null;
+    public boolean signal = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,12 +65,13 @@ public class MainActivity extends AppCompatActivity {
             String s = txtShow.getText().toString();
             Button btn = (Button)findViewById(v.getId());
             txtShow.setText(s+btn.getText());
+            signal = true;
         }
     };
     private Button.OnClickListener cListener = new Button.OnClickListener(){
         @Override
         public void onClick(View v){
-            txtShow.setText("");
+            txtShow.setText("0");
         }
     };
     private Button.OnClickListener eqListener = new Button.OnClickListener(){
@@ -78,6 +80,15 @@ public class MainActivity extends AppCompatActivity {
             AlertDialog.Builder obj= new AlertDialog.Builder(MainActivity.this);
             ArrayList<Double> num = new ArrayList<Double>();
             ArrayList<Character> op = new ArrayList<Character>();
+            if(!signal){
+                obj.setTitle("警告");
+                obj.setMessage("要輸入運算式");
+                obj.setPositiveButton("確定", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialogInterface, int i){}
+                });
+                obj.show();
+                return;
+            }
             s = txtShow.getText().toString();
             String[] tokens =s.split("\\+|-|\\*|/");
 
