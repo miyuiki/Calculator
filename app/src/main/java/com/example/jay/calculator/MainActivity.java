@@ -16,6 +16,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView txtShow;
     private Button b1,b2,b3,b4,b5,b6,b7,b8,b9,b0;
     private Button add,sub,mult,div,eq,c;
+    private String s = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,20 +75,22 @@ public class MainActivity extends AppCompatActivity {
     private Button.OnClickListener eqListener = new Button.OnClickListener(){
         @Override
         public void onClick(View v){
+            AlertDialog.Builder obj= new AlertDialog.Builder(MainActivity.this);
             ArrayList<Double> num = new ArrayList<Double>();
             ArrayList<Character> op = new ArrayList<Character>();
-            String s = txtShow.getText().toString();
+            s = txtShow.getText().toString();
             String[] tokens =s.split("\\+|-|\\*|/");
-            for (int i = 0;i < tokens.length;i++){
-                num.add(Double.parseDouble(tokens[i]));
+
+            if (s.charAt(0) == '+'||s.charAt(0) == '-'||s.charAt(0) == '*'||s.charAt(0) == '/'){
+                obj.setTitle("警告");
+                obj.setMessage("輸入格式錯誤");
+                obj.setPositiveButton("確定", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialogInterface, int i){}
+                });
+                obj.show();
+                return;
             }
-            for (int i = 0;i < s.length();i++){
-                if(s.charAt(i)=='+'||s.charAt(i)=='-'||s.charAt(i)=='*'||s.charAt(i)=='/'){
-                    op.add(s.charAt(i));
-                }
-            }
-            if (op.size() >= num.size()){
-                AlertDialog.Builder obj= new AlertDialog.Builder(MainActivity.this);
+            if(error(s)){
                 obj.setTitle("警告");
                 obj.setMessage("輸入格式錯誤");
                 obj.setPositiveButton("確定", new DialogInterface.OnClickListener() {
@@ -97,6 +100,23 @@ public class MainActivity extends AppCompatActivity {
                 return;
             }
 
+            for (int i = 0;i < tokens.length;i++){
+                num.add(Double.parseDouble(tokens[i]));
+            }
+            for (int i = 0;i < s.length();i++){
+                if(s.charAt(i)=='+'||s.charAt(i)=='-'||s.charAt(i)=='*'||s.charAt(i)=='/'){
+                    op.add(s.charAt(i));
+                }
+            }
+            if (op.size() >= num.size()){
+                obj.setTitle("警告");
+                obj.setMessage("輸入格式錯誤");
+                obj.setPositiveButton("確定", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialogInterface, int i){}
+                });
+                obj.show();
+                return;
+            }
             for (int i = 0; i < op.size(); i++){
                 if(op.get(i) == '*'){
                     num.set(i, num.get(i)*num.get(i+1));
@@ -127,6 +147,16 @@ public class MainActivity extends AppCompatActivity {
             }
             String ans = String.valueOf(num.get(0));
             txtShow.setText(ans);
+        }
+        private boolean error(String str){
+            for(int i = 0;i < str.length()-1; i++){
+                if((str.charAt(i) == '+'||str.charAt(i)=='-'||str.charAt(i)=='*'||str.charAt(i)=='/')
+                        &&(str.charAt(i+1) == '+'||str.charAt(i+1)=='-'||str.charAt(i+1)=='*'||str.charAt(i+1)=='/'))
+                {
+                    return true;
+                }
+            }
+            return false;
         }
     };
 }
