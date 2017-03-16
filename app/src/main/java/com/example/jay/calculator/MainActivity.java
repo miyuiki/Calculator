@@ -1,5 +1,7 @@
 package com.example.jay.calculator;
 
+import android.content.DialogInterface;
+import android.preference.DialogPreference;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -88,6 +90,9 @@ public class MainActivity extends AppCompatActivity {
                 AlertDialog.Builder obj= new AlertDialog.Builder(MainActivity.this);
                 obj.setTitle("警告");
                 obj.setMessage("輸入格式錯誤");
+                obj.setPositiveButton("確定", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialogInterface, int i){}
+                });
                 obj.show();
                 return;
             }
