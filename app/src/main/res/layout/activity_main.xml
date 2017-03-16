@@ -21,7 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="117dp"
             android:ems="10"
-            android:inputType="textPersonName|phone"
+            android:inputType="none"
             android:textColor="@color/colorAccent"
             android:textSize="30sp"
             android:textStyle="bold" />

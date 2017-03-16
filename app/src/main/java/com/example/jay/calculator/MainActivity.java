@@ -82,6 +82,11 @@ public class MainActivity extends AppCompatActivity {
                     op.add(s.charAt(i));
                 }
             }
+            if (op.size() >= num.size()){
+                txtShow.setText("輸入格式錯誤");
+                return;
+            }
+
             for (int i = 0; i < op.size(); i++){
                 if(op.get(i) == '*'){
                     num.set(i, num.get(i)*num.get(i+1));
