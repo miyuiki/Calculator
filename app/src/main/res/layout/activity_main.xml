@@ -25,6 +25,7 @@
             android:textColor="@color/colorAccent"
             android:textSize="30sp"
             android:textStyle="bold" />
+            android:editable="false"
     </LinearLayout>
 
     <LinearLayout
