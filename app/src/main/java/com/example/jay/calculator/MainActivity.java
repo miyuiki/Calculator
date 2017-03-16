@@ -1,5 +1,6 @@
 package com.example.jay.calculator;
 
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -84,7 +85,10 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
             if (op.size() >= num.size()){
-                txtShow.setText("輸入格式錯誤");
+                AlertDialog.Builder obj= new AlertDialog.Builder(MainActivity.this);
+                obj.setTitle("警告");
+                obj.setMessage("輸入格式錯誤");
+                obj.show();
                 return;
             }
 
