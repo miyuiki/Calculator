@@ -71,7 +71,8 @@ public class MainActivity extends AppCompatActivity {
     private Button.OnClickListener cListener = new Button.OnClickListener(){
         @Override
         public void onClick(View v){
-            txtShow.setText("0");
+            txtShow.setText("");
+            signal = false;
         }
     };
     private Button.OnClickListener eqListener = new Button.OnClickListener(){
